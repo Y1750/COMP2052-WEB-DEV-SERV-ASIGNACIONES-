@@ -1,0 +1,18 @@
+{
+    "usuarios": [
+      {
+        "nombre": "Ejemplo",
+        "correo": "ejemplo@correo.com"
+      }
+    ],
+    "productos": [
+      {
+        "id": 1,
+        "nombre": "Producto Demo",
+        "descripcion": "Un producto de prueba",
+        "precio": 49.99,
+        "stock": 5
+      }
+    ]
+  }
+  
