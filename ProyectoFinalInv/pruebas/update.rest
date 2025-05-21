@@ -1,0 +1,11 @@
+PUT http://localhost:5000/items/18
+Content-Type: application/json
+
+{
+  "nombre": "COMPUTADORA 48",
+  "categoria": "Electrónica",
+  "cantidad": 5,
+  "precio_estimado": 1400,
+  "ubicacion": "Oficina Principal",
+  "fecha_adquisicion": "2025-05-02"
+}

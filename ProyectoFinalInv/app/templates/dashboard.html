@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="row mb-3">
+  <div class="col">
+    <h3>Inventario Personal</h3>
+  </div>
+  <div class="col text-end">
+    {% if current_user.role.name != 'Usuario' %}
+    <a class="btn btn-primary" href="{{ url_for('main.crear_item') }}">
+      <i class="bi bi-plus"></i> Nuevo Ítem
+    </a>
+    {% endif %}
+  </div>
+</div>
+
+<table class="table table-bordered table-hover">
+  <thead class="table-light">
+    <tr>
+      <th>Nombre</th>
+      <th>Categoría</th>
+      <th>Cantidad</th>
+      <th>Precio Estimado</th>
+      <th>Ubicación</th>
+      <th>Fecha de Adquisición</th>
+      <th class="text-center">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in items %}
+    <tr>
+      <td>{{ item.nombre }}</td>
+      <td>{{ item.categoria }}</td>
+      <td>{{ item.cantidad }}</td>
+      <td>{{ item.precio_estimado }}</td>
+      <td>{{ item.ubicacion }}</td>
+      <td>{{ item.fecha_adquisicion.strftime('%Y-%m-%d') if item.fecha_adquisicion else '' }}</td>
+      <td class="text-center">
+        {% if current_user.role.name == 'Admin' or item.usuario_id == current_user.id %}
+        <a href="{{ url_for('main.editar_item', id=item.id) }}" class="btn btn-sm btn-warning" title="Editar Ítem">
+          <i class="bi bi-pencil"></i>
+        </a>
+        <form method="POST" action="{{ url_for('main.eliminar_item', id=item.id) }}" style="display:inline" onsubmit="return confirm('¿Seguro que quieres eliminar este ítem?');">
+          <button type="submit" class="btn btn-sm btn-danger" title="Eliminar Ítem">
+            <i class="bi bi-trash"></i>
+          </button>
+        </form>
+        {% else %}
+        <span class="text-muted"><i class="bi bi-lock"></i></span>
+        {% endif %}
+      </td>
+    </tr>
+    {% else %}
+    <tr>
+      <td colspan="7" class="text-center text-muted">No hay ítems en el inventario.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if current_user.role.name == 'Usuario' %}
+<p class="text-center mt-3 text-muted fst-italic">No tienes permiso para crear, editar o eliminar ítems.</p>
+{% endif %}
+{% endblock %}

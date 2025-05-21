@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block title %}Iniciar Sesión{% endblock %}
+{% block content %}
+<div class="border rounded p-4 mx-auto" style="max-width: 400px;">
+  <h3 class="mb-4 text-center">Iniciar Sesión</h3>
+  <form method="POST" novalidate>
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+      {{ form.email.label(class="form-label") }}
+      {{ form.email(class="form-control", placeholder="Correo electrónico") }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.password.label(class="form-label") }}
+      {{ form.password(class="form-control", placeholder="Contraseña") }}
+    </div>
+
+    <div class="mb-3 text-center pt-3">
+      {{ form.submit(class="btn btn-primary") }}
+    </div>
+  </form>
+  <p class="text-center mt-3">
+    ¿No tienes cuenta? <a href="{{ url_for('auth.register') }}">Regístrate aquí</a>
+  </p>
+</div>
+{% endblock %}

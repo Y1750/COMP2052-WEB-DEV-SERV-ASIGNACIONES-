@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block title %}Inventario Personal{% endblock %}
+{% block content %}
+<h3 class="mb-4">Inventario Personal</h3>
+
+<div class="text-end mb-3">
+  <a href="{{ url_for('main.nuevo_item') }}" class="btn btn-primary">
+    <i class="bi bi-plus"></i> Nuevo Ítem
+  </a>
+</div>
+
+<table class="table table-bordered table-hover">
+  <thead class="table-light">
+    <tr>
+      <th>Nombre</th>
+      <th>Categoría</th>
+      <th>Cantidad</th>
+      <th>Precio Estimado</th>
+      <th>Ubicación</th>
+      <th>Fecha de Adquisición</th>
+      <th class="text-center">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in items %}
+    <tr>
+      <td>{{ item.nombre }}</td>
+      <td>{{ item.categoria }}</td>
+      <td>{{ item.cantidad }}</td>
+      <td>{{ item.precio_estimado }}</td>
+      <td>{{ item.ubicacion }}</td>
+      <td>{{ item.fecha_adquisicion.strftime('%Y-%m-%d') if item.fecha_adquisicion else '' }}</td>
+      <td class="text-center">
+        <a href="{{ url_for('main.editar_item', id=item.id) }}" class="btn btn-sm btn-warning" title="Editar Ítem">
+          <i class="bi bi-pencil"></i>
+        </a>
+        <form method="POST" action="{{ url_for('main.eliminar_item', id=item.id) }}" style="display:inline" onsubmit="return confirm('¿Seguro que quieres eliminar este ítem?');">
+          <button type="submit" class="btn btn-sm btn-danger" title="Eliminar Ítem">
+            <i class="bi bi-trash"></i>
+          </button>
+        </form>
+      </td>
+    </tr>
+    {% else %}
+    <tr>
+      <td colspan="7" class="text-center text-muted">No hay ítems en el inventario.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

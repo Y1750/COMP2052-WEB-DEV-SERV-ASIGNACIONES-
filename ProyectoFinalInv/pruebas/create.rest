@@ -1,0 +1,11 @@
+POST http://localhost:5000/items
+Content-Type: application/json
+
+{
+  "nombre": "Laptop Dell",
+  "categoria": "Electrónica",
+  "cantidad": 3,
+  "precio_estimado": 1500,
+  "ubicacion": "Oficina Central",
+  "fecha_adquisicion": "2025-05-01"
+}

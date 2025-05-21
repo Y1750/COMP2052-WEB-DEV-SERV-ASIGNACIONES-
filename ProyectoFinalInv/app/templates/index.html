@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block title %}Inicio{% endblock %}
+{% block content %}
+<div class="text-center">
+  <h1 class="mt-5">Bienvenido al Inventario Personal</h1>
+  {% if current_user.is_authenticated %}
+  <p class="lead text-muted">Usa el Dashboard para gestionar tus ítems.</p>
+  {% else %}
+  <p class="lead text-secondary">Por favor inicia sesión o regístrate para continuar.</p>
+  {% endif %}
+</div>
+{% endblock %}
